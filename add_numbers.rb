@@ -15,6 +15,12 @@ def add(numbers)
     # If the input ends with a comma followed by a new line
     raise ArgumentError, "Invalid input: #{numbers}" if numbers.end_with?(",\n")
 
+    # check for negative numbers.
+    negative_numbers = numbers.split(',').map(&:to_i).select { |num| num.negative? }
+    if negative_numbers.any?
+      raise ArgumentError, "Negative numbers not allowed: #{negative_numbers.join(',')}"
+    end
+
     # Replace new lines with commas, then split by comma and sum up the numbers
     numbers.gsub(/\n/, ',').split(',').map(&:to_i).sum
   rescue ArgumentError => e
@@ -41,4 +47,13 @@ puts "Support different delimiters"
 puts "Example 1 with ; delimiter '//;\n1;2;3' #{add("//;\n1;2;3")}" # Output: 6
 puts "Example 2 with % delimiter '//%\n1%2%5' #{add("//%\n1%2%5")}" # Output: 8
 puts "Example 3 with ^ delimiter '%%\n1%2%5' #{add("//%\n1%2%5")}" # Output: 8
+puts "-----------------------------------------"
+
+
+puts "-----------------------------------------"
+puts "---------Check this context--------------"
+puts "Negative numbers context"
+puts "Example 1 with add(\"-1,5,-6\"): #{add("-1,5,-6")}" # Output: Not allowed
+puts "Example 2 add new line(\"1,\n,2,3,-4,5\"): #{add("1,\n,2,3,-4,5")}" # Output: Not allowed
+puts "Example 3 with ^ delimiter '%%\n1%-2%-5' #{add("//%\n1%-2%-5")}" # Output: Not allowed
 puts "-----------------------------------------"
