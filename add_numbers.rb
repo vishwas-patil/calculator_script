@@ -13,12 +13,12 @@ def add(numbers)
     end
 
     # If the input ends with a comma followed by a new line
-    raise ArgumentError, "Invalid input: #{numbers}" if numbers.end_with?(",\n")
+    return "Invalid input: #{numbers}" if numbers.end_with?(",\n")
 
     # check for negative numbers.
     negative_numbers = numbers.split(',').map(&:to_i).select { |num| num.negative? }
     if negative_numbers.any?
-      raise ArgumentError, "Negative numbers not allowed: #{negative_numbers.join(',')}"
+      return "Negative numbers not allowed: #{negative_numbers.join(',')}"
     end
 
     # Replace new lines with commas, then split by comma and sum up the numbers
