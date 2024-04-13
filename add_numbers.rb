@@ -2,12 +2,7 @@
 def add(numbers)
   return 0 if numbers.empty?
 
-  numbers_array = numbers.split(',')
-  sum = 0
-  numbers_array.each do |num|
-    sum += num.to_i
-  end
-  return sum
+  numbers.split(',').map(&:to_i).sum
 end
 
 puts "Test Cases:"
